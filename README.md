@@ -20,14 +20,20 @@ Place the plugin code under the plugins directory.
 
 * Set a dependency of your plugin to this plugin in your init.rb. The following code checks the dependency without need of particular care to the plugin names.
 
+<pre>
     Rails.configuration.to_prepare do
         Redmine::Plugin.find(:your_plugin_name).requires_redmine_plugin :redmine_pluggable_themes, :version_or_higher => '1.0.0'
     end
+</pre>
 
 * Create a folder assets/themes
 * Put a Redmine theme in the created folder, just as you would do into Redmine root's public/themes folder
 * Edit stylesheets/application.css and change the line (if present)
+<pre>
     @import url(../../../stylesheets/application.css);
+</pre>    
   to
+<pre>  
     @import url(/stylesheets/application.css);
+</pre>
 
