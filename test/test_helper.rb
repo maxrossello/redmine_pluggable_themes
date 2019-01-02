@@ -1,4 +1,5 @@
 # Redmine plugin for Pluggable Themes
+#
 # Copyright (C) 2018    Massimo Rossello https://github.com/maxrossello
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,20 +20,5 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-require 'redmine'
-
-Rails.logger.info 'Redmine pluggable themes'
-
-Redmine::Plugin.register :redmine_pluggable_themes do
-  name 'Redmine Pluggable Themes plugin'
-  author 'Massimo Rossello'
-  description 'Allows plugins to export themes in assets'
-  version '1.0.0'
-  url 'https://github.com/maxrossello/redmine_pluggable_themes.git'
-  author_url 'https://github.com/maxrossello'
-  requires_redmine :version_or_higher => '3.4.0'
-
-end
-
-require_dependency 'themes_patch'
-
+# Load the Redmine helper
+require File.expand_path('../../../../test/test_helper', __FILE__)

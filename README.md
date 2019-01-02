@@ -1,6 +1,6 @@
 # Redmine Pluggable Themes
 
-Tested with Redmine 3.4.6.
+Tested with Redmine 3.4.6, 3.4.7.
 
 Allows Redmine plugins to provide themes just like other assets.
 
