@@ -22,14 +22,17 @@ require File.expand_path('../../test_helper', __FILE__)
 
 class ThemesTest < Redmine::IntegrationTest
 
+  include CommonPluggableThemesTestHelper
+  
   def setup
-    Redmine::Themes.rescan
+    default_setup
     @theme = Redmine::Themes.themes.last
     Setting.ui_theme = @theme.id
     @path = @theme.path.split('public')[1]
   end
 
   def teardown
+    default_teardown
     Setting.ui_theme = ''
   end
 
