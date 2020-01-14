@@ -22,3 +22,15 @@
 
 # Load the Redmine helper
 require File.expand_path('../../../../test/test_helper', __FILE__)
+
+module CommonPluggableThemesTestHelper
+  def default_setup
+    Redmine::Themes.stubs(:scan_themes).returns([Redmine::Themes::Theme.new(File.dirname(__FILE__) + "/fixtures/public/themes/foo")])
+    Redmine::Themes.rescan
+  end
+  
+  def default_teardown
+    Redmine::Themes.unstub(:scan_themes)
+    Redmine::Themes.rescan
+  end
+end

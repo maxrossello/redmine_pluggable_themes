@@ -25,9 +25,15 @@ require File.expand_path('../../test_helper', __FILE__)
 class ApplicationHelperTest < Redmine::HelperTest
   #include ERB::Util
   include Rails.application.routes.url_helpers
+  include CommonPluggableThemesTestHelper
 
   def setup
     super
+    default_setup
+  end
+  
+  def teardown
+    default_teardown
   end
 
   def test_image_tag_should_pick_the_theme_image_if_it_exists
