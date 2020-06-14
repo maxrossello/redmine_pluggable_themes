@@ -1,6 +1,6 @@
 # Redmine Pluggable Themes
 
-Supports Redmine 4.0.x.
+Supports Redmine 4.1.
 
 Allows Redmine plugins to provide themes just like other assets.
 
