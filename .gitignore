@@ -9,3 +9,4 @@ files/
 log/
 test/html_reports/
 tmp/
+public/

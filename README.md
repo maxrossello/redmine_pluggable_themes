@@ -28,12 +28,12 @@ Place the plugin code under the plugins directory.
 
 * Create a folder assets/themes
 * Put a Redmine theme in the created folder, just as you would do into Redmine root's public/themes folder
-* Edit stylesheets/application.css and change the line (if present)
+* If your plugin's theme need to import any Redmine default stylesheet, do that using an absolute path. For example, replace the following:
 <pre>
     @import url(../../../stylesheets/application.css);
 </pre>    
-  to
+​	   with:
 <pre>  
     @import url(/stylesheets/application.css);
 </pre>
-
+​        Alternatively, you can copy and paste in your plugin the files under assets/stylesheet that you find in this plugin. Those will be addressed by a relative url and contain absolute references.
