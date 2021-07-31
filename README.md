@@ -1,13 +1,17 @@
 # Redmine Pluggable Themes
 
-The plugin version corresponds to minimum version of Redmine required. Look at dedicated branch for each Redmine version.
-
 Allows Redmine plugins to provide themes just like other assets.
 
 Possible use cases:
 * Easier installation of themes
 * Theme enhancements integrated with code extensions
 * Deployment of customer-specific customizations including theme, in a single package
+
+## Version
+
+Tests are performed through [redmine_testsuites](https://github.com/maxrossello/redmine_testsuites) including all the plugins it supports.
+
+The plugin version corresponds to minimum version of Redmine required. Look at dedicated branch for each Redmine version.
 
 ## Installation
 
