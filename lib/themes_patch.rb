@@ -21,45 +21,47 @@
 # SOFTWARE.
 
 module ThemesPatch
-  def scan_themes
-    dirs = Dir.glob("#{Rails.public_path}/plugin_assets/*/themes/*").select do |f|
-      # A theme should at least override application.css
-      File.directory?(f) && File.exist?("#{f}/stylesheets/application.css")
+  module InstancePatch
+    def scan_themes
+      dirs = Dir.glob("#{Rails.public_path}/plugin_assets/*/themes/*").select do |f|
+        # A theme should at least override application.css
+        File.directory?(f) && File.exist?("#{f}/stylesheets/application.css")
+      end
+      dirs.collect! {|dir| Redmine::Themes::Theme.new(dir)}
+      dirs = super + dirs
+      dirs.sort { |x,y| x <=> y }
     end
-    dirs.collect! {|dir| Redmine::Themes::Theme.new(dir)}
-    dirs = super + dirs
-    dirs.sort { |x,y| x <=> y }
+  end
+  
+  module ClassPatch
+    def theme_path
+      @path.match('^.*public(/.*)')[1]
+    end
+  
+    def stylesheet_path(source)
+      "#{theme_path}/stylesheets/#{source}"
+    end
+  
+    def image_path(source)
+      "#{theme_path}/images/#{source}"
+    end
+  
+    def javascript_path(source)
+      "#{theme_path}/javascripts/#{source}"
+    end
+  
+    def favicon_path
+      "#{theme_path}/favicon/#{favicon}"
+    end
   end
 end
 
-module ThemePatch
-  def theme_path
-    @path.match('^.*public(/.*)')[1]
-  end
-
-  def stylesheet_path(source)
-    "#{theme_path}/stylesheets/#{source}"
-  end
-
-  def image_path(source)
-    "#{theme_path}/images/#{source}"
-  end
-
-  def javascript_path(source)
-    "#{theme_path}/javascripts/#{source}"
-  end
-
-  def favicon_path
-    "#{theme_path}/favicon/#{favicon}"
-  end
+unless Redmine::Themes::Theme.included_modules.include?(ThemesPatch::InstancePatch)
+  Redmine::Themes::Theme.send(:prepend, ThemesPatch::InstancePatch)
 end
 
-unless Redmine::Themes::Theme.included_modules.include?(ThemePatch)
-  Redmine::Themes::Theme.send(:prepend, ThemePatch)
-end
-
-unless Redmine::Themes.singleton_class.included_modules.include?(ThemesPatch)
-  Redmine::Themes.singleton_class.send(:prepend, ThemesPatch)
+unless Redmine::Themes.singleton_class.included_modules.include?(ThemesPatch::ClassPatch)
+  Redmine::Themes.singleton_class.send(:prepend, ThemesPatch::ClassPatch)
   #Redmine::Themes.rescan
 end
 
