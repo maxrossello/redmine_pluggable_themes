@@ -25,7 +25,7 @@ Place the plugin code under the plugins directory.
 * Set a dependency of your plugin to this plugin in your init.rb. The following code checks the dependency without need of particular care to the plugin names.
 
 <pre>
-    Rails.configuration.to_prepare do
+    Rails.configuration.after_initialize do
         Redmine::Plugin.find(:your_plugin_name).requires_redmine_plugin :redmine_pluggable_themes, :version_or_higher => '1.0.0'
     end
 </pre>
