@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 module ThemesPatch
-  module InstancePatch
+  module ClassPatch
     def scan_themes
       dirs = Dir.glob("#{Rails.public_path}/plugin_assets/*/themes/*").select do |f|
         # A theme should at least override application.css
@@ -33,7 +33,7 @@ module ThemesPatch
     end
   end
   
-  module ClassPatch
+  module InstancePatch
     def theme_path
       @path.match('^.*public(/.*)')[1]
     end
@@ -62,6 +62,5 @@ end
 
 unless Redmine::Themes.singleton_class.included_modules.include?(ThemesPatch::ClassPatch)
   Redmine::Themes.singleton_class.send(:prepend, ThemesPatch::ClassPatch)
-  #Redmine::Themes.rescan
 end
 
