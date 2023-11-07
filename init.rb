@@ -27,10 +27,10 @@ Redmine::Plugin.register :redmine_pluggable_themes do
   name 'Redmine Pluggable Themes plugin'
   author 'Massimo Rossello'
   description 'Allows plugins to export themes in assets'
-  version '5.0.2'
+  version '5.1.0'
   url 'https://github.com/maxrossello/redmine_pluggable_themes.git'
   author_url 'https://github.com/maxrossello'
-  requires_redmine :version_or_higher => '5.0.2'
+  requires_redmine :version_or_higher => '5.1.0'
 
 end
 
