@@ -10,3 +10,6 @@ log/
 test/html_reports/
 tmp/
 public/
+coverage/
+plugins/
+themes/

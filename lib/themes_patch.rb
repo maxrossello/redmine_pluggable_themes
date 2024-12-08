@@ -23,7 +23,7 @@
 module ThemesPatch
   module ClassPatch
     def scan_themes
-      dirs = Dir.glob("#{Rails.public_path}/plugin_assets/*/themes/*").select do |f|
+      dirs = Dir.glob(["#{Rails.root}/plugins/*/app/assets/themes/*", "#{Rails.root}/plugins/*/assets/themes/*"]).select do |f|
         # A theme should at least override application.css
         File.directory?(f) && File.exist?("#{f}/stylesheets/application.css")
       end
@@ -32,32 +32,6 @@ module ThemesPatch
       dirs.sort { |x,y| x <=> y }
     end
   end
-  
-  module InstancePatch
-    def theme_path
-      @path.match('^.*public(/.*)')[1]
-    end
-  
-    def stylesheet_path(source)
-      "#{theme_path}/stylesheets/#{source}"
-    end
-  
-    def image_path(source)
-      "#{theme_path}/images/#{source}"
-    end
-  
-    def javascript_path(source)
-      "#{theme_path}/javascripts/#{source}"
-    end
-  
-    def favicon_path
-      "#{theme_path}/favicon/#{favicon}"
-    end
-  end
-end
-
-unless Redmine::Themes::Theme.included_modules.include?(ThemesPatch::InstancePatch)
-  Redmine::Themes::Theme.send(:prepend, ThemesPatch::InstancePatch)
 end
 
 unless Redmine::Themes.singleton_class.included_modules.include?(ThemesPatch::ClassPatch)
