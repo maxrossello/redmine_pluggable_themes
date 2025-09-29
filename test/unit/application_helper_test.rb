@@ -42,8 +42,8 @@ class ApplicationHelperTest < Redmine::HelperTest
     path = theme.path.split('public')[1]
 
     with_settings :ui_theme => theme.id do
-      assert_match %|src="#{path}/images/image.png"|, image_tag("image.png")
-      assert_match %|src="/images/other.png"|, image_tag("other.png")
+      assert_match %|src="/assets#{path}/image.png"|, image_tag("image.png")
+      assert_match %|src="/assets/other.png"|, image_tag("other.png")
     end
   ensure
     theme.images.delete 'image.png'
